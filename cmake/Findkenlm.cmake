@@ -20,6 +20,7 @@ find_library(
   kenlm
   ENV KENLM_ROOT_DIR
   PATHS
+    ${KENLM_DIR}
     $ENV{KENLM_ROOT_DIR}
   HINT
     ${KENLM_DIR}
@@ -33,6 +34,7 @@ find_library(
   kenlm_util
   ENV KENLM_ROOT_DIR
   PATHS
+    ${KENLM_DIR}
     $ENV{KENLM_ROOT_DIR}
   HINT
     ${KENLM_DIR}

@@ -5,7 +5,7 @@
 #
 
 ### Find CUDA
-find_package(CUDA 9.2 QUIET) # CUDA 9.2 is required for >= ArrayFire 3.6.1
+find_package(CUDA 9.1 QUIET) # CUDA 9.1 is required for >= ArrayFire 3.6.1
 if (CUDA_FOUND)
   message(STATUS "CUDA found (library: ${CUDA_LIBRARIES} include: ${CUDA_INCLUDE_DIRS})")
 else()
