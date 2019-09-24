@@ -164,8 +164,8 @@ if __name__ == "__main__":
             trans=os.path.join(args.data_dst, "text/si284.txt"),
         )
     )
-    lmplz = os.path.join(args.kenlm, "build", "bin", "lmplz")
-    binary = os.path.join(args.kenlm, "build", "bin", "build_binary")
+    lmplz = "lmplz"
+    binary = "build_binary"
     lm_file = os.path.join(decoder_path, "lm-4g")
     cmd = "{bin} -T /tmp -S 10G --discount_fallback -o 4 --text {file} > {lm_file}.arpa"
     os.system(cmd.format(bin=lmplz, lm_file=lm_file, file=train_data))
