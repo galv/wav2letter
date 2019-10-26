@@ -126,8 +126,8 @@ endif ()
 
 # ------------------ Configure Full Build ----------------------
 
-set(W2L_LIBRARIES_USE_CUDA ${FLASHLIGHT_USE_CUDA} CACHE BOOL "" FORCE)
-set(W2L_LIBRARIES_USE_KENLM ON CACHE BOOL "" FORCE)
+set(W2L_LIBRARIES_USE_CUDA ${FLASHLIGHT_USE_CUDA} CACHE BOOL "")
+set(W2L_LIBRARIES_USE_KENLM ON CACHE BOOL "")
 
 # ------------------------ Components ------------------------
 
@@ -203,6 +203,11 @@ if (W2L_BUILD_RECIPES)
   message(STATUS "Building recipes.")
   add_subdirectory(${PROJECT_SOURCE_DIR}/recipes)
 endif ()
+
+set(W2L_BUILD_EXECUTABLES ON CACHE BOOL "")
+
+if(W2L_BUILD_EXECUTABLES)
+
 # ----------------------------- Train -----------------------------
 add_executable(
   Train
@@ -235,3 +240,5 @@ target_link_libraries(
   Decoder
   wav2letter++
   )
+
+endif(W2L_BUILD_EXECUTABLES)
