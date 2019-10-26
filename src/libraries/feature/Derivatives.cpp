@@ -79,7 +79,7 @@ std::vector<T> Derivatives<T>::computeDerivative(
       size_t curIdx = i * numfeat + j;
       for (size_t d = 1; d <= windowlen; ++d) {
         output[curIdx] += d *
-            (input[curIdx + std::min((numframes - i - 1), d) * numfeat] -
+            (input[curIdx + std::min(static_cast<size_t>(numframes - i - 1), d) * numfeat] -
              input[curIdx - std::min(i, d) * numfeat]);
       }
       output[curIdx] /= denominator;

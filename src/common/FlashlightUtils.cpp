@@ -8,6 +8,8 @@
 
 #include "common/FlashlightUtils.h"
 
+#include <array>
+
 namespace w2l {
 
 int64_t numTotalParams(std::shared_ptr<fl::Module> module) {

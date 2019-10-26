@@ -67,10 +67,10 @@ std::vector<T> transpose2d(
     throw std::invalid_argument("Invalid input size");
   }
   std::vector<T> out(in.size());
-  for (size_t b = 0; b < inBatch; ++b) {
+  for (int64_t b = 0; b < inBatch; ++b) {
     int64_t start = b * inRow * inCol;
-    for (size_t c = 0; c < inCol; ++c) {
-      for (size_t r = 0; r < inRow; ++r) {
+    for (int64_t c = 0; c < inCol; ++c) {
+      for (int64_t r = 0; r < inRow; ++r) {
         out[start + c * inRow + r] = in[start + r * inCol + c];
       }
     }
@@ -92,12 +92,12 @@ std::vector<T> localNormalize(
   int64_t perBatchSz = in.size() / batchSz;
   int64_t perFrameSz = perBatchSz / frameSz;
   auto out(in);
-  for (size_t b = 0; b < batchSz; ++b) {
+  for (int64_t b = 0; b < batchSz; ++b) {
     std::vector<T> sum(frameSz, 0.0), sum2(frameSz, 0.0);
     int64_t curFrame = 0;
     // accumulate sum, sum^2 for computing mean, stddev
     for (auto i = b * perBatchSz; i < (b + 1) * perBatchSz; ++i) {
-      auto start = std::max(curFrame - rightCtxSize, 0L);
+      auto start = std::max(curFrame - rightCtxSize, int64_t(0L));
       auto end = std::min(curFrame + leftCtxSize, frameSz - 1);
       for (int64_t j = start; j <= end; ++j) {
         sum[j] += in[i];
@@ -108,7 +108,7 @@ std::vector<T> localNormalize(
     // compute mean, stddev
     for (auto j = 0; j < frameSz; ++j) {
       int64_t N = (std::min(j + rightCtxSize, frameSz - 1) -
-                   std::max(j - leftCtxSize, 0L) + 1) *
+                   std::max(j - leftCtxSize, int64_t(0L)) + 1) *
           perFrameSz;
       sum[j] /= N;
       sum2[j] /= N;
@@ -138,7 +138,7 @@ std::vector<T> normalize(
   }
   auto out(in);
   int64_t perBatchSz = out.size() / batchSz;
-  for (size_t b = 0; b < batchSz; ++b) {
+  for (int64_t b = 0; b < batchSz; ++b) {
     auto start = out.begin() + b * perBatchSz;
     T sum = std::accumulate(start, start + perBatchSz, 0.0);
     T mean = sum / perBatchSz;
